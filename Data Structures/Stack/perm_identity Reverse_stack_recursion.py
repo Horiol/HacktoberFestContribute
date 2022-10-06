@@ -14,8 +14,7 @@ def reverse(stack):
 
 
 def createStack(): 
-	stack = [] 
-	return stack 
+	return [] 
 
 # Function to check if 
 # the stack is empty 

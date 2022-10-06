@@ -25,43 +25,34 @@ class gameState(object):
       self.player=player
 
     def isWin(self):
-        for locations in winningStates:
-            if self.board[locations[0]] == startState.player and self.board[locations[1]] == startState.player and self.board[locations[2]] == startState.player:
-                return True
-        return False
+        return any(
+            self.board[locations[0]] == startState.player
+            and self.board[locations[1]] == startState.player
+            and self.board[locations[2]] == startState.player
+            for locations in winningStates
+        )
 
     def isLose(self):
-        if startState.player == X:
-            opponent = O
-        else:
-            opponent = X
-        for locations in winningStates:
-            if self.board[locations[0]] == opponent and self.board[locations[1]] == opponent and self.board[locations[2]] == opponent:
-                return True
-        return False
+        opponent = O if startState.player == X else X
+        return any(
+            self.board[locations[0]] == opponent
+            and self.board[locations[1]] == opponent
+            and self.board[locations[2]] == opponent
+            for locations in winningStates
+        )
 
     def isDraw(self):
         if self.isWin() or self.isLose():
             return False
-        for pos in range(9):
-            if self.board[pos] == E:
-                return False
-        return True
+        return all(self.board[pos] != E for pos in range(9))
 
     def getLegalActions(self):
-        legal = []
-        for pos in range(9):
-            if self.board[pos] == E:
-                legal.append(pos)
-        return legal
+        return [pos for pos in range(9) if self.board[pos] == E]
 
     def generateSuccessor(self,action):
         newState = copy.deepcopy(self)
         newState.board[action]=newState.player
-        if newState.player == X:
-            newState.player = O
-        else:
-            newState.player = X
+        newState.player = O if newState.player == X else X
         return newState
 
 
@@ -161,7 +152,6 @@ if __name__ == '__main__':
 
     # print(player)
     board = list(input()+input()+input())
-        # print(type(player))
     # print(board)
     player = input()
 
@@ -173,5 +163,5 @@ if __name__ == '__main__':
 
     action = getAction(startState)
     # print(action)
-    print(str(int(action/3))+" "+str(int(action%3)))
+    print(f"{int(action / 3)} {int(action % 3)}")
     # print(len(board))

@@ -12,6 +12,6 @@ array_length = len(array)
 first_element = array[array_length-2]
 second_element = array[array_length-1]
 sum_of_two_largest_elements_in_array = first_element + second_element
-print("Second largest element: " + str(first_element))
-print("Largest element: " + str(second_element))
-print("Sum: " + str(sum_of_two_largest_elements_in_array))
+print(f"Second largest element: {str(first_element)}")
+print(f"Largest element: {str(second_element)}")
+print(f"Sum: {str(sum_of_two_largest_elements_in_array)}")

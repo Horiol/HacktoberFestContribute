@@ -7,8 +7,7 @@ for v in array[1:]:
     if v > fbig:
         sbig = fbig
         fbig = v
-    else: 
-        if v > sbig:
-            sbig = v
+    elif v > sbig:
+        sbig = v
 
 print(sbig)

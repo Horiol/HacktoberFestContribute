@@ -1,5 +1,3 @@
 s = list(input())
-s2 = []
-for i in range(len(s)):
-  s2.append(s.pop())
+s2 = [s.pop() for _ in range(len(s))]
 print(s2)

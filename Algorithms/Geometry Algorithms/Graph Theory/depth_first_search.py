@@ -4,16 +4,17 @@
 Python implementation for Depth First Search algorithm
 """
 
+
 dummy_graph = {
-	'A': set(['C', 'E']),
-	'B': set(['C', 'E', 'G']),
-	'C': set(['D', 'F', 'G']),
-	'D': set(['H']),
-	'E': set(['A', 'B', 'C']),
-	'F': set(['D', 'I']),
-	'G': set(['A']),
+	'A': {'C', 'E'},
+	'B': {'C', 'E', 'G'},
+	'C': {'D', 'F', 'G'},
+	'D': {'H'},
+	'E': {'A', 'B', 'C'},
+	'F': {'D', 'I'},
+	'G': {'A'},
 	'H': set([]),
-	'I': set(['B', 'C'])
+	'I': {'B', 'C'},
 }
 
 def dfs(graph, node, visited_nodes):

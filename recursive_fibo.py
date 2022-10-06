@@ -7,4 +7,4 @@ def fibo(a):
 		return(fibo(a-1)+fibo(a-2))
 
 i=int(input("Enter i : "))
-print(str(i)+"th element of fibonacci series is "+str(fibo(i)))
+print(f"{i}th element of fibonacci series is {str(fibo(i))}")

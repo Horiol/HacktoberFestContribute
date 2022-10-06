@@ -23,7 +23,10 @@ def main():
 	arr = [1,2,4,8,16,32,64,128,256,512,1024,2048,4096,3,27,9,81,243,729,8,7]
 	index1, index2 = maxPairSum(arr)
 
-	print("The maximal sum of the array is recieved by adding the items at indexes {} and {}.".format(index1, index2))
+	print(
+		f"The maximal sum of the array is recieved by adding the items at indexes {index1} and {index2}."
+	)
+
 	print("The sum is", arr[index1] + arr[index2])
 
 

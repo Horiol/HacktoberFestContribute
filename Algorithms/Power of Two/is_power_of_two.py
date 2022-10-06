@@ -13,11 +13,11 @@ def main():
 			try:
 				x = int(arg)
 				is_pwr = 'a' if (x > 0 and (x & (x-1)) == 0) else 'not a'
-				print("{} is {} power of two.".format(arg, is_pwr))
+				print(f"{arg} is {is_pwr} power of two.")
 			except:
-				print("Error: {} is not an integer!".format(arg))
+				print(f"Error: {arg} is not an integer!")
 	else:
-		print("Usage: {} <number> [additional numbers]".format(basename(sys.argv[0])))
+		print(f"Usage: {basename(sys.argv[0])} <number> [additional numbers]")
 
 if __name__ == '__main__':
 	main()

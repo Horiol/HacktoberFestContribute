@@ -36,5 +36,5 @@ def fibonacciUntilIndex(index):
 		temp = a1
 		a1 = a2
 		a2 += temp
-		print("Fibonacci number at index {} = {}".format(position, a1))
+		print(f"Fibonacci number at index {position} = {a1}")
 		position += 1

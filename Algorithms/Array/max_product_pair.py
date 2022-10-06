@@ -2,12 +2,11 @@ def maxProductPair(arr, l):
 	if l < 2:
 		#if there are less then 2 elements present in there is no pair possible
 		print ("no possible pair availible")
+	elif l == 2:
+		#if length is equals to 2 this will be the only pair 
+		printPair(arr[0], arr[1])
 	else:
-		if l == 2:
-			#if length is equals to 2 this will be the only pair 
-			printPair(arr[0], arr[1])
-		else:
-			'''
+		'''
 			now if there are more than 2 elements in array 
 			we have to consider there sign(positive or negative) also
 
@@ -17,20 +16,20 @@ def maxProductPair(arr, l):
 			eg: if there are elements such as -4 -3 1 2 
 			then 12(-4*-3) will be the maximum product and not 2(1*2) 
 			'''
-			
-			if (arr[0] * arr[1]) > (arr[-2] * arr[-1]):
-				printPair(arr[0], arr[1])
-			elif (arr[0] * arr[1]) < (arr[-2] * arr[-1]):
-				printPair(arr[-2], arr[-1])
-			else:
-				'''
+
+		if (arr[0] * arr[1]) > (arr[-2] * arr[-1]):
+			printPair(arr[0], arr[1])
+		elif (arr[0] * arr[1]) < (arr[-2] * arr[-1]):
+			printPair(arr[-2], arr[-1])
+		else:
+			'''
 				This is a special case when product of first 2 and last 2 elements 
 				comes same
 
 				eg : [-4,-2,2,4]
 				'''
-				printPair(arr[0], arr[1])
-				printPair(arr[-2], arr[-1])
+			printPair(arr[0], arr[1])
+			printPair(arr[-2], arr[-1])
 
 
 def printPair(a,b):

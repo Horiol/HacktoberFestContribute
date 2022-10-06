@@ -4,14 +4,12 @@ c=int(input())
 print("choose any of the below operations:")
 print("[A]dd\n[M]ultiply\nm[I]n\ne[X]it")
 x=input("enter A, M, I or X:")
-if x=='A' or x=='a' :
+if x in ['A', 'a']:
     print(a+b+c)
-elif x=='M' or x=='m' :
+elif x in ['M', 'm']:
     print(a*b*c)
-elif x=='I' or x=='i' :
+elif x in ['I', 'i']:
     print(min(a,b,c))
-elif x=='E' or x=='e' :
-    pass
-else:
+elif x not in ['E', 'e']:
     print("error! invalid input")
     

@@ -1,7 +1,7 @@
 def binary_search(A,x):
     start = 0        # This variable represents the beginning index that will reference the search
     end = len(A)-1   # This one represents the ending index
-    
+
     while start <= end:
         mdl = (start+end)//2  # This variable represents the index of the middle of the list
 

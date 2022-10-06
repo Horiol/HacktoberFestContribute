@@ -15,7 +15,7 @@ q2=[]
 r=[]
 w1=[]
 w2=[]
-for i in range(100):
+for _ in range(100):
     p.append((random.randint(-200,200))/100)
     r.append((random.randint(-200,200))/100)
 for j in range(100):

@@ -54,7 +54,7 @@ def createMenu():
             120))
     menusize.add_command(label="custom", command=setCustomSize)
     menusize.add_separator()
-    for x in range(0, len(customsizes)):
+    for x in range(len(customsizes)):
         menusize.add_command(
             label=str(
                 customsizes[x][0]) + "x" + str(
@@ -78,10 +78,15 @@ def setCustomSize():
     m = tkinter.simpledialog.askinteger("Custom size", "Enter number of mines")
     while m > r * c:
         m = tkinter.simpledialog.askinteger(
-            "Custom size", "Maximum mines for this dimension is: " + str(
-                r * c) + "\nEnter amount of mines")
+            "Custom size",
+            (
+                f"Maximum mines for this dimension is: {str(r * c)}"
+                + "\nEnter amount of mines"
+            ),
+        )
+
     customsizes.insert(0, (r, c, m))
-    customsizes = customsizes[0:5]
+    customsizes = customsizes[:5]
     setSize(r, c, m)
     createMenu()
 
@@ -104,10 +109,10 @@ def saveConfig():
     config.set("game", "mines", str(mines))
     config.add_section("sizes")
     config.set("sizes", "amount", str(min(5, len(customsizes))))
-    for x in range(0, min(5, len(customsizes))):
-        config.set("sizes", "row" + str(x), str(customsizes[x][0]))
-        config.set("sizes", "cols" + str(x), str(customsizes[x][1]))
-        config.set("sizes", "mines" + str(x), str(customsizes[x][2]))
+    for x in range(min(5, len(customsizes))):
+        config.set("sizes", f"row{str(x)}", str(customsizes[x][0]))
+        config.set("sizes", f"cols{str(x)}", str(customsizes[x][1]))
+        config.set("sizes", f"mines{str(x)}", str(customsizes[x][2]))
 
     with open("config.ini", "w") as file:
         config.write(file)
@@ -122,29 +127,26 @@ def loadConfig():
     cols = config.getint("game", "cols")
     mines = config.getint("game", "mines")
     amountofsizes = config.getint("sizes", "amount")
-    for x in range(0, amountofsizes):
+    for x in range(amountofsizes):
         customsizes.append(
-            (config.getint(
-                "sizes",
-                "row" + str(x)),
-                config.getint(
-                "sizes",
-                "cols" + str(x)),
-                config.getint(
-                "sizes",
-                "mines" + str(x))))
+            (
+                config.getint("sizes", f"row{str(x)}"),
+                config.getint("sizes", f"cols{str(x)}"),
+                config.getint("sizes", f"mines{str(x)}"),
+            )
+        )
 
 
 def prepareGame():
     print('game pepared')
     global rows, cols, mines, field
     field = []
-    for x in range(0, rows):
+    for x in range(rows):
         field.append([])
-        for y in range(0, cols):
+        for _ in range(cols):
             field[x].append(0)
     # print(field)
-    for _ in range(0, mines):
+    for _ in range(mines):
         x = random.randint(0, rows - 1)
         y = random.randint(0, cols - 1)
         while field[x][y] == -1:
@@ -152,29 +154,23 @@ def prepareGame():
             y = random.randint(0, cols - 1)
         field[x][y] = -1
         if x != 0:
-            if y != 0:
-                if field[x - 1][y - 1] != -1:
-                    field[x - 1][y - 1] = int(field[x - 1][y - 1]) + 1
+            if y != 0 and field[x - 1][y - 1] != -1:
+                field[x - 1][y - 1] = int(field[x - 1][y - 1]) + 1
             if field[x - 1][y] != -1:
                 field[x - 1][y] = int(field[x - 1][y]) + 1
-            if y != cols - 1:
-                if field[x - 1][y + 1] != -1:
-                    field[x - 1][y + 1] = int(field[x - 1][y + 1]) + 1
-        if y != 0:
-            if field[x][y - 1] != -1:
-                field[x][y - 1] = int(field[x][y - 1]) + 1
-        if y != cols - 1:
-            if field[x][y + 1] != -1:
-                field[x][y + 1] = int(field[x][y + 1]) + 1
+            if y != cols - 1 and field[x - 1][y + 1] != -1:
+                field[x - 1][y + 1] = int(field[x - 1][y + 1]) + 1
+        if y != 0 and field[x][y - 1] != -1:
+            field[x][y - 1] = int(field[x][y - 1]) + 1
+        if y != cols - 1 and field[x][y + 1] != -1:
+            field[x][y + 1] = int(field[x][y + 1]) + 1
         if x != rows - 1:
-            if y != 0:
-                if field[x + 1][y - 1] != -1:
-                    field[x + 1][y - 1] = int(field[x + 1][y - 1]) + 1
+            if y != 0 and field[x + 1][y - 1] != -1:
+                field[x + 1][y - 1] = int(field[x + 1][y - 1]) + 1
             if field[x + 1][y] != -1:
                 field[x + 1][y] = int(field[x + 1][y]) + 1
-            if y != cols - 1:
-                if field[x + 1][y + 1] != -1:
-                    field[x + 1][y + 1] = int(field[x + 1][y + 1]) + 1
+            if y != cols - 1 and field[x + 1][y + 1] != -1:
+                field[x + 1][y + 1] = int(field[x + 1][y + 1]) + 1
     # print('finally',field)
 
 
@@ -182,9 +178,9 @@ def prepareWindow():
     print('window prepared')
     global rows, cols, buttons
     buttons = []
-    for x in range(0, rows):
+    for x in range(rows):
         buttons.append([])
-        for y in range(0, cols):
+        for y in range(cols):
             b = tkinter.Button(
                 window,
                 text=" ",
@@ -227,7 +223,7 @@ def clickOn(x, y):
         buttons[x][y].config(background='red', disabledforeground='black')
         gameover = True
         tkinter.messagebox.showinfo("Game Over", "You have lost.")
-        for _x in range(0, rows):
+        for _x in range(rows):
             for _y in range(cols):
                 if field[_x][_y] == -1:
                     buttons[_x][_y]["text"] = "lol"
@@ -246,10 +242,7 @@ def autoClickOn(x, y):
     global field, buttons, colors, rows, cols
     if buttons[x][y]["state"] == "disabled":
         return
-    if field[x][y] != 0:
-        buttons[x][y]["text"] = str(field[x][y])
-    else:
-        buttons[x][y]["text"] = " "
+    buttons[x][y]["text"] = str(field[x][y]) if field[x][y] != 0 else " "
     buttons[x][y].config(disabledforeground=colors[field[x][y]])
     buttons[x][y].config(relief=tkinter.SUNKEN)
     buttons[x][y]['state'] = 'disabled'
@@ -289,8 +282,8 @@ def checkWin():
     print('Win Checked')
     global buttons, field, rows, cols
     win = True
-    for x in range(0, rows):
-        for y in range(0, cols):
+    for x in range(rows):
+        for y in range(cols):
             if field[x][y] != -1 and buttons[x][y]["state"] == "normal":
                 win = False
     if win:

@@ -7,6 +7,5 @@ for num in arr:
 		zeroCounter+=1
 	else:
 		newArr.append(num)
-for i in range(0, zeroCounter):
-	newArr.append(0)
+newArr.extend(0 for _ in range(zeroCounter))
 print(newArr)

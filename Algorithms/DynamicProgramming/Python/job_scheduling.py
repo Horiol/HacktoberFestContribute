@@ -16,11 +16,11 @@ class Job:
 # The array jobs[] is sorted in increasing order of finish
 # time.
 def binary_search(job, start_index):
- 
+
     # Initialize 'lo' and 'hi' for Binary Search
     lo = 0
     hi = start_index - 1
- 
+
     # Perform binary Search iteratively
     while lo <= hi:
         mid = (lo + hi) // 2

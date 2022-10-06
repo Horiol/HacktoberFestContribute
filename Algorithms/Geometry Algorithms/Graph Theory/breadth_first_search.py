@@ -19,11 +19,9 @@ dummy_graph = {
 
 def bfs(graph):
 	q = Queue()
-	visited_nodes = []
-
 	# Get the first node in the graph, mark it as 'visited' and add it to the queue 
 	first_node = list(graph.keys())[0]
-	visited_nodes.append(first_node)
+	visited_nodes = [first_node]
 	q.put(first_node)
 
 	while not q.empty():

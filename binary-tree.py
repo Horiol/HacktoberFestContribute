@@ -12,14 +12,14 @@ class Node:
 
 
 def is_leaf(node):
-    return node.left == None and node.right == None
+    return node.left is None and node.right is None
 
 
 def insert(key, tree):
     new_node = Node(key)
     current_node = tree.root
     parent_node = None
-    
+
     while current_node:
         parent_node = current_node
         if key < current_node.key:
@@ -39,11 +39,8 @@ def insert(key, tree):
 def search(key, node):
     if node.key == key or node is None:
         return node
-   
-    if node.key < key:
-        return search(key, node.right)
-    else:
-        return search(key, node.left)
+
+    return search(key, node.right) if node.key < key else search(key, node.left)
 
 
 def tree_search(key, tree):

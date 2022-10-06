@@ -7,10 +7,7 @@ def insertion_sort(array):
             j -= 1
 
 def array_to_string(array):
-    string = ""
-    for i in array:
-        string += i + " "
-        
+    string = "".join(f"{i} " for i in array)
     return string.strip()
 
 string = raw_input("Enter your array as a String, separating the numbers by spaces:\n> ")

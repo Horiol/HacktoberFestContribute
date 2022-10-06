@@ -34,7 +34,7 @@ class LinkedList:
     def getCount(self): 
         temp = self.head # Initialise temp 
         count = 0 # Initialise count 
-  
+
         # Loop while end of linked list is not reached 
         while (temp): 
             count += 1

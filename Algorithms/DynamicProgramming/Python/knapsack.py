@@ -22,7 +22,7 @@ class Item(object):
 def get_maximum_value(items, capacity):
     dp = [0] * (capacity + 1)
     for item in items:
-        dp_tmp = [total_value for total_value in dp]
+        dp_tmp = list(dp)
         for current_weight in range(capacity + 1):
             total_weight = current_weight + item.weight
             if total_weight <= capacity:

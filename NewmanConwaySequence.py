@@ -1,5 +1,5 @@
 def newmanConwaySequence(n):
-    if n==1 or n==2:
+    if n in [1, 2]:
         return 1
     return newmanConwaySequence(newmanConwaySequence(n-1))+newmanConwaySequence(n-newmanConwaySequence(n-1))
 

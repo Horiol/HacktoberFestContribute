@@ -17,8 +17,7 @@ def climb_stairs(n):
     :rtype: int
     """
     arr = [1, 1]
-    for _ in range(1, n):
-        arr.append(arr[-1] + arr[-2])
+    arr.extend(arr[-1] + arr[-2] for _ in range(1, n))
     return arr[-1]
 
 

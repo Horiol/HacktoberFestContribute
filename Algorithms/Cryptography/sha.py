@@ -56,20 +56,14 @@ def L_P(SET, n):
     return(to_return)
 
 def string_to_list(bit_string):
-    bit_list = []
-    for i in range(len(bit_string)):
-        bit_list.append(bit_string[i])
-    return(bit_list)
+    return [bit_string[i] for i in range(len(bit_string))]
 
 def list_to_string(bit_list):
-    bit_string = ''
-    for i in range(len(bit_list)):
-        bit_string += bit_list[i]
-    return(bit_string)
+    return ''.join(bit_list[i] for i in range(len(bit_list)))
 
 def rotate_right(bit_string, n):
     bit_list = string_to_list(bit_string)
-    for i in range(n):
+    for _ in range(n):
         last_elem = list(bit_list.pop(-1))
         bit_list = last_elem + bit_list
     return(list_to_string(bit_list))
@@ -84,13 +78,10 @@ def mod_32_addition(input_set):
     return(sum(input_set) % 4294967296)
 
 def xor_2str(string_1, string_2):
-    xor_string = ''
-    for i in range(len(string_1)):
-        if string_1[i] == string_2[i]:
-            xor_string += '0'
-        else:
-            xor_string += '1'
-    return(xor_string)
+    return ''.join(
+        '0' if string_1[i] == string_2[i] else '1'
+        for i in range(len(string_1))
+    )
 
 def and_2str(string_1, string_2):
     and_list = []
@@ -111,13 +102,9 @@ def or_2str(string_1, string_2):
     return(list_to_string(or_list))
 
 def not_str(bit_string):
-    not_string = ''
-    for i in range(len(bit_string)):
-        if bit_string[i] == '0':
-            not_string += '1'
-        else:
-            not_string += '0'
-    return(not_string)
+    return ''.join(
+        '1' if bit_string[i] == '0' else '0' for i in range(len(bit_string))
+    )
 
 '''
     SHA-256 Specific Functions:
@@ -142,7 +129,7 @@ def s_1(x):
     return(xor_2str(xor_2str(rotate_right(x, 17), rotate_right(x, 19)), shift_right(x, 10)))
 
 def message_pad(bit_list):
-    pad_one = bit_list + '1'
+    pad_one = f'{bit_list}1'
     pad_len = len(pad_one)
     k = 0
     while ((pad_len + k) - 448) % 512 != 0:
@@ -152,9 +139,11 @@ def message_pad(bit_list):
     return(pad_one + back_append_0 + back_append_1)
 
 def message_bit_return(string_input):
-    bit_list = []
-    for i in range(len(string_input)):
-        bit_list.append(dec_to_bin_8_bit(ord(string_input[i])))
+    bit_list = [
+        dec_to_bin_8_bit(ord(string_input[i]))
+        for i in range(len(string_input))
+    ]
+
     return(list_to_string(bit_list))
 
 def message_pre_pro(input_string):
@@ -165,8 +154,16 @@ def message_parsing(input_string):
     return(L_P(message_pre_pro(input_string), 32))
 
 def message_schedule(index, w_t):
-    new_word = dec_to_bin_32_bit(mod_32_addition([bin_to_dec(s_1(w_t[index - 2])), bin_to_dec(w_t[index - 7]), bin_to_dec(s_0(w_t[index - 15])), bin_to_dec(w_t[index - 16])]))
-    return(new_word)
+    return dec_to_bin_32_bit(
+        mod_32_addition(
+            [
+                bin_to_dec(s_1(w_t[index - 2])),
+                bin_to_dec(w_t[index - 7]),
+                bin_to_dec(s_0(w_t[index - 15])),
+                bin_to_dec(w_t[index - 16]),
+            ]
+        )
+    )
 
 def sha_256(input_string):
     w_t = message_parsing(input_string)
@@ -178,34 +175,21 @@ def sha_256(input_string):
     f = dec_to_bin_32_bit(hex_to_dec(initial_hash_values[5]))
     g = dec_to_bin_32_bit(hex_to_dec(initial_hash_values[6]))
     h = dec_to_bin_32_bit(hex_to_dec(initial_hash_values[7]))
-    for i in range(0, 64):
-        if i <=  15:
-            t_1 = mod_32_addition([bin_to_dec(h), bin_to_dec(e_1(e)), bin_to_dec(Ch(e, f, g)), hex_to_dec(sha_256_constants[i]), bin_to_dec(w_t[i])])
-            t_2 = mod_32_addition([bin_to_dec(e_0(a)), bin_to_dec(Maj(a, b, c))])
-            h = g
-            g = f
-            f = e
-            e = mod_32_addition([bin_to_dec(d), t_1])
-            d = c
-            c = b
-            b = a
-            a = mod_32_addition([t_1, t_2])
-            a = dec_to_bin_32_bit(a)
-            e = dec_to_bin_32_bit(e)
-        else:
+    for i in range(64):
+        if i > 15:
             w_t.append(message_schedule(i, w_t))
-            t_1 = mod_32_addition([bin_to_dec(h), bin_to_dec(e_1(e)), bin_to_dec(Ch(e, f, g)), hex_to_dec(sha_256_constants[i]), bin_to_dec(w_t[i])])
-            t_2 = mod_32_addition([bin_to_dec(e_0(a)), bin_to_dec(Maj(a, b, c))])
-            h = g
-            g = f
-            f = e
-            e = mod_32_addition([bin_to_dec(d), t_1])
-            d = c
-            c = b
-            b = a
-            a = mod_32_addition([t_1, t_2])
-            a = dec_to_bin_32_bit(a)
-            e = dec_to_bin_32_bit(e)
+        t_1 = mod_32_addition([bin_to_dec(h), bin_to_dec(e_1(e)), bin_to_dec(Ch(e, f, g)), hex_to_dec(sha_256_constants[i]), bin_to_dec(w_t[i])])
+        t_2 = mod_32_addition([bin_to_dec(e_0(a)), bin_to_dec(Maj(a, b, c))])
+        h = g
+        g = f
+        f = e
+        e = mod_32_addition([bin_to_dec(d), t_1])
+        d = c
+        c = b
+        b = a
+        a = mod_32_addition([t_1, t_2])
+        a = dec_to_bin_32_bit(a)
+        e = dec_to_bin_32_bit(e)
 hash_0 = mod_32_addition([hex_to_dec(initial_hash_values[0]), bin_to_dec(a)])
 hash_1 = mod_32_addition([hex_to_dec(initial_hash_values[1]), bin_to_dec(b)])
 hash_2 = mod_32_addition([hex_to_dec(initial_hash_values[2]), bin_to_dec(c)])
@@ -222,6 +206,4 @@ final_hash = [dec_to_hex(hash_0),
               dec_to_hex(hash_5),
               dec_to_hex(hash_6),
               dec_to_hex(hash_7)]
-return(''.join(final_hash))
-
 assert(sha_256('cosmos')) == '4cbe19716b1aa73a67dc4b28c34391879b503259fc76852082b4dafcf0de85b2'

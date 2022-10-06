@@ -7,7 +7,7 @@ def perm(mem, chars):
         print(mem)
         return
 
-    for i in range(0, len(chars)):
+    for i in range(len(chars)):
         copy = list(chars)
         prefix = mem + copy[i]
         copy.pop(i)

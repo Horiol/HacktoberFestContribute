@@ -16,6 +16,6 @@ def encrypt(text, s):
 text = "ATTACKATONCE"
 s = 4
 
-print("Plain Text : " + text)
-print("Shift pattern : " + str(s))
-print("Cipher: " + encrypt(text, s))
+print(f"Plain Text : {text}")
+print(f"Shift pattern : {s}")
+print(f"Cipher: {encrypt(text, s)}")

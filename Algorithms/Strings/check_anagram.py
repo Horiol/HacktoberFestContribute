@@ -13,8 +13,8 @@ def compute_char_counts(s):
 		# ignore non alphabet chars
 		if char not in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUFWXYZ':
 			continue
-			
-		if not char in char_counts:
+
+		if char not in char_counts:
 			char_counts[char] = 0
 		char_counts[char] += 1
 	return char_counts
@@ -23,20 +23,20 @@ def compute_char_counts(s):
 def check_anagram(a, b):
 	print ('Checking for Anagram')
 	print ('Comparing "%s" to "%s"' % (a, b))
-	
+
 	# compute the count of each occurrence of each character
 	char_counts_1 = compute_char_counts(a)
 	char_counts_2 = compute_char_counts(b)
 
 	for char in char_counts_1:
-		if not char in char_counts_2:
-			print('Not an anagram... %s is not shared.' % char)
+		if char not in char_counts_2:
+			print(f'Not an anagram... {char} is not shared.')
 			return False
-			
+
 		if char_counts_1[char] != char_counts_2[char]:
-			print('Not an anagram... %s is not shared equally.' % char)
+			print(f'Not an anagram... {char} is not shared equally.')
 			return False
-	
+
 	return True
 
 

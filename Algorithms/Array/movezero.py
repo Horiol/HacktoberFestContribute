@@ -21,10 +21,10 @@ def move_zeroes(array):
 
 if __name__ == '__main__':
 	if len(sys.argv) == 1:
-		example = [ str(random.randint(0,1)) for i in range(0,25) ]
+		example = [str(random.randint(0,1)) for _ in range(25)]
 		before = ' '.join(example)
 		after = ' '.join(move_zeroes(example))
 		message = "Before: \n {0} \n \nAfter: \n {1} \n"
 		print(message.format(before,after))
 	else:
-		print(' '.join(move_zeroes( sys.argv[1:len(sys.argv)] )))
+		print(' '.join(move_zeroes(sys.argv[1:])))

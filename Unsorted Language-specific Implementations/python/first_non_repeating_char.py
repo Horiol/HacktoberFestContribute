@@ -1,5 +1,5 @@
 def find_first_unique_char(inp):
-    vis = dict()
+    vis = {}
     for c in inp:
         vis[c] = vis.get(c, 0) + 1
     for c in inp:

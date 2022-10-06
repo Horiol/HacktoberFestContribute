@@ -30,28 +30,25 @@ print(conclusionInput)
 # The function itself.
 def printTruthTable(conclusion, n):
 
- # We will need a different approach to odd and even numbers. This is the easiest way I know to do it.
- i = 2
-
  # Recursion to loop through a variable amount of atomic sentences.
  if n >= 0:
+  # We will need a different approach to odd and even numbers. This is the easiest way I know to do it.
+  i = 2
+
   for characterList[n] in True, False:
 
    # The check for odd / even loop, to be able to set the global variable properly.
    if i%2 == 0:
 
     # Setting the global variable, so that our exec(conclusion) can read it.
-    exec('%s = True' % characterListCopy[n], globals())
+    exec(f'{characterListCopy[n]} = True', globals())
     i -= 1
-    printTruthTable(conclusion, n - 1)
-    
    else:
     # Setting the global variable, so that our exec(conclusion) can read it.
-    exec('%s = False' % characterListCopy[n], globals())
+    exec(f'{characterListCopy[n]} = False', globals())
     i += 1
-    printTruthTable(conclusion, n -1)
-    
- # Printing each row of the table.
+   printTruthTable(conclusion, n - 1)
+
  else:
 
   # Looping through the local variables.
@@ -61,6 +58,6 @@ def printTruthTable(conclusion, n):
   # Evaluating the conclusion using the global variables.
   exec(conclusion)
   
-conclusionString = 'print(' + conclusionInput + ')'
+conclusionString = f'print({conclusionInput})'
 
 printTruthTable(conclusionString, n)

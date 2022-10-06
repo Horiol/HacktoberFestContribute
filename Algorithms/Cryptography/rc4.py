@@ -1,8 +1,5 @@
 def run_rc4(text,key):
-    resultado = []
-    for char in text:
-        resultado.append(rc4(char,key))
-    
+    resultado = [rc4(char,key) for char in text]
     return bytearray(resultado)
 
 
@@ -33,12 +30,11 @@ def GenFluxo(S):
     i = 0
     j = 0
 
-    while(True):
+    while True:
         i = (i+1) % 256
         j = (j + S[i]) % 256
         swap(S,i,j)
-        K = S[(S[i] + S[j]) % 256]
-        yield K
+        yield S[(S[i] + S[j]) % 256]
         
 def swap(lista,index1,index2):
     tmp = lista[index1]

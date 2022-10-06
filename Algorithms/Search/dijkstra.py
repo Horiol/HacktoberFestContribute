@@ -12,12 +12,10 @@ def make_edge(start, end, cost=1):
 # initializing datas
 class Graph:
     def __init__(self, edges):
-        # let's check that the data is right
-        wrong_edges = [i for i in edges if len(i) not in [2, 3]]
-        if wrong_edges:
-            raise ValueError('Wrong edges data: {}'.format(wrong_edges))
+      if wrong_edges := [i for i in edges if len(i) not in [2, 3]]:
+        raise ValueError(f'Wrong edges data: {wrong_edges}')
 
-        self.edges = [make_edge(*edge) for edge in edges]
+      self.edges = [make_edge(*edge) for edge in edges]
 
     @property
     def vertices(self):
@@ -28,11 +26,7 @@ class Graph:
         )
 
     def get_node_pairs(self, n1, n2, both_ends=True):
-        if both_ends:
-            node_pairs = [[n1, n2], [n2, n1]]
-        else:
-            node_pairs = [[n1, n2]]
-        return node_pairs
+      return [[n1, n2], [n2, n1]] if both_ends else [[n1, n2]]
 
     # function to remove
     def remove_edge(self, n1, n2, both_ends=True):
@@ -44,14 +38,14 @@ class Graph:
 
     # function to add
     def add_edge(self, n1, n2, cost=1, both_ends=True):
-        node_pairs = self.get_node_pairs(n1, n2, both_ends)
-        for edge in self.edges:
-            if [edge.start, edge.end] in node_pairs:
-                return ValueError('Edge {} {} already exists'.format(n1, n2))
+      node_pairs = self.get_node_pairs(n1, n2, both_ends)
+      for edge in self.edges:
+        if [edge.start, edge.end] in node_pairs:
+          return ValueError(f'Edge {n1} {n2} already exists')
 
-        self.edges.append(Edge(start=n1, end=n2, cost=cost))
-        if both_ends:
-            self.edges.append(Edge(start=n2, end=n1, cost=cost))
+      self.edges.append(Edge(start=n1, end=n2, cost=cost))
+      if both_ends:
+          self.edges.append(Edge(start=n2, end=n1, cost=cost))
 
     # find neighbours for every node
     @property

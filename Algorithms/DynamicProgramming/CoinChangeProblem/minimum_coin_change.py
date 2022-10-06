@@ -1,16 +1,12 @@
 def return_change(V,C):
-    d=[]
-    #if V=0:
-    #   return d
-    for i in range(0,V+1):
-        d.append(0)
+    d = [0 for _ in range(V+1)]
     for i in range(1,V+1):
-	    coinchange=100000 
-	    for k in range(0,len(C)):
-			if (i<C[k]):
-				break
-			coinchange=min(coinchange,d[i-C[k]]+1)
-	    d[i]=coinchange
+        coinchange=100000
+        for k in range(len(C)):
+            if (i<C[k]):
+            	break
+            coinchange=min(coinchange,d[i-C[k]]+1)
+        d[i]=coinchange
     return d[V]
 V,n=raw_input().split(' ')
 #Reading the input

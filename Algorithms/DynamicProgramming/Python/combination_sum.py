@@ -34,10 +34,12 @@ def helper_topdown(nums, target):
     global dp
     if dp[target] != -1:
         return dp[target]
-    res = 0
-    for i in range(0, len(nums)):
-        if target >= nums[i]:
-            res += helper_topdown(nums, target - nums[i])
+    res = sum(
+        helper_topdown(nums, target - nums[i])
+        for i in range(len(nums))
+        if target >= nums[i]
+    )
+
     dp[target] = res
     return res
 
@@ -53,7 +55,7 @@ def combination_sum_topdown(nums, target):
 def combination_sum_bottom_up(nums, target):
     comb = [0] * (target + 1)
     comb[0] = 1
-    for i in range(0, len(comb)):
+    for i in range(len(comb)):
         for j in range(len(nums)):
             if i - nums[j] >= 0:
                 comb[i] += comb[i - nums[j]]

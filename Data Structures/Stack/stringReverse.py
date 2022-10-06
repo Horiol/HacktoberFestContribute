@@ -28,5 +28,5 @@ while(stck.height()):
 
 outputString = outputstck.string
 
-print("Reversed String: "+outputString)
+print(f"Reversed String: {outputString}")
 

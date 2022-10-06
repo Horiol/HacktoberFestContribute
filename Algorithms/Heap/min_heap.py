@@ -3,9 +3,9 @@ import math
 class MinHeap:
 	def __init__(self, N):
 		self.N = N
-		self.tree = [0 for k in range(N)]
-		self.key = [0 for k in range(N)]
-		self.pos = [-1 for k in range(N)]
+		self.tree = [0 for _ in range(N)]
+		self.key = [0 for _ in range(N)]
+		self.pos = [-1 for _ in range(N)]
 		self.heapsize = 0
 	
 	@staticmethod
@@ -24,26 +24,26 @@ class MinHeap:
 		L = MinHeap.l(i)
 		R = MinHeap.r(i)
 		smallest = i
-		
+
 		if L < self.heapsize and self.tree[L] < self.tree[i]:
 			smallest = L
-			
+
 		if R < self.heapsize and self.tree[R] < self.tree[smallest]:
 			smallest = R
-			
+
 		if smallest != i:
 			value = self.tree[i]
 			index = self.key[i]
-			
+
 			self.tree[i] = self.tree[smallest]
 			self.key[i] = self.key[smallest]
 			self.tree[smallest] = value
 			self.key[smallest] = index
-			
+
 			# Change positions
 			self.pos[self.key[smallest]] = smallest
 			self.pos[self.key[i]] = i
-			
+
 			self.heapify(smallest)
 	
 	def add(self, k, v):
@@ -54,7 +54,7 @@ class MinHeap:
 				self.key[i] = self.key[MinHeap.p(i)]
 				self.pos[self.key[i]] = i
 				i = MinHeap.p(i)
-				
+
 			self.tree[i] = v
 			self.key[i] = k
 			self.pos[k] = i

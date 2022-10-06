@@ -7,9 +7,9 @@ class Node:
         self.next_node = next_node
 
     def __repr__(self):
-        if self.next_node == None:
+        if self.next_node is None:
             return repr(self.value)
-        return "{} {}".format(self.value, self.next_node)
+        return f"{self.value} {self.next_node}"
 
     value = None
     next_node = None

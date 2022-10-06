@@ -40,6 +40,5 @@ def print_hosoya(n):
 def hosoya_testing(n):
     x = []
     for i in range(n): 
-        for j in range(i + 1): 
-            x.append(hosoya(i, j))
+        x.extend(hosoya(i, j) for j in range(i + 1))
     return x

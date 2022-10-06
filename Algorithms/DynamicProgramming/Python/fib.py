@@ -14,10 +14,7 @@ def fib_recursive(n):
     # precondition
     assert n >= 0, 'n must be a positive integer'
 
-    if n <= 1:
-        return n
-    else:
-        return fib_recursive(n-1) + fib_recursive(n-2)
+    return n if n <= 1 else fib_recursive(n-1) + fib_recursive(n-2)
 
 # print(fib_recursive(35)) # => 9227465 (slow)
 
@@ -38,8 +35,10 @@ def fib_list(n):
     assert n >= 0, 'n must be a positive integer'
 
     list_results = [0, 1]
-    for i in range(2, n+1):
-        list_results.append(list_results[i-1] + list_results[i-2])
+    list_results.extend(
+        list_results[i - 1] + list_results[i - 2] for i in range(2, n + 1)
+    )
+
     return list_results[n]
 
 # print(fib_list(100)) # => 354224848179261915075

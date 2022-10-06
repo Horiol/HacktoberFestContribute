@@ -12,24 +12,18 @@ def r(index):
 	return 2*index + 2
 
 def p(index):
-	if index - 1 < 0:
-		return None
-	else:
-		return ( index - 1 ) // 2
+	return None if index < 1 else ( index - 1 ) // 2
 
 def build_random_tree(tree,value_range,num_keys):
 	counter = 0
 	position = 0
 	while counter < num_keys:
 		key = random.randint(0,value_range)
-		if tree[position] == None:
+		if tree[position] is None:
 			tree[position] = key
 			counter += 1
 		else:
-			if counter % 2: #choose left
-				position = l(position)
-			else: #choose right
-				position = r(position)
+			position = l(position) if counter % 2 else r(position)
 	return tree
 	
 	
@@ -47,9 +41,9 @@ if __name__ == '__main__':
 			parent = p(node)
 			parent_list.append(tree[parent])
 			node = p(node)
-			if parent == None: break
+			if parent is None: break
 			level += 1
 		if level % 2:
 			msg = '\n \n Node: {0} \n Path: {1} \n Level: {2} \n \n'
-			path = str(item[1]) + ' --> ' + ' --> '.join([str(x) for x in parent_list])
+			path = f'{str(item[1])} --> ' + ' --> '.join([str(x) for x in parent_list])
 			print(msg.format(str(item[1]), path, level))
